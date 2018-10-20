@@ -135,7 +135,7 @@ $(document).ready(function () {
         // NexusPHP类站点通用
         function NexusPHP(site, search_prefix, torrent_table_selector) {
             Get_Search_Page(site, search_prefix, function (res, doc, body, page) {
-                var url_prefix = /pt\.whu\.edu\.cn|whupt\.net|hudbt\.hust\.edu\.cn/.test(res.finalUrl) ? "" : (res.finalUrl.match(/(https?:\/\/[^\/]+?\/).+/) || ['', ''])[1];
+                var url_prefix = /whu\.pt|pt\.whu\.edu\.cn|whupt\.net|hudbt\.hust\.edu\.cn/.test(res.finalUrl) ? "" : (res.finalUrl.match(/(https?:\/\/[^\/]+?\/).+/) || ['', ''])[1];
                 writelog("Using The normal parser for NexusPHP in Site: " + site);
                 if (/没有种子|No [Tt]orrents?|Your search did not match anything|用准确的关键字重试/.test(res.responseText)) {
                     writelog("No any torrent find in Site " + site + ".");
