@@ -106,6 +106,9 @@ $(document).ready(function () {
                     method: 'GET',
                     url: search_prefix.replace("$key$",search_text),
                     onload: function (res) {
+                        writelog(res.finalUrl);
+                        writelog(res.statusText);
+                        writelog(res.readyState);
                         if (/(login|verify|returnto)[.=]/.test(res.finalUrl)) {
                             writelog("May Not Login in Site " + site + ". With finalUrl: " + res.finalUrl);
                         } else {
