@@ -40,7 +40,7 @@
       "name": "WHU",
       "type": "jyw",
       "temple": "NexusPHP",
-      "search_prefix": "https://pt.whu.edu.cn/torrents.php?search="
+      "search_prefix": "https://whu.pt/torrents.php?search="
     },
     {
       "name": "NWSUAF6",
