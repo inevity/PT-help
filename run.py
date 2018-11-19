@@ -13,8 +13,26 @@ app.register_blueprint(getinfo_blueprint)
 
 
 @app.route('/')
-def hello():
-    return "Hello world~"
+#def hello():
+#    return "Hello world~"
+def root():
+    return app.send_static_file('ptboard.html')
+
+@app.route('/ptgen')
+def ptgen():
+    return app.send_static_file('ptgen.html')
+
+@app.route('/ptsearch')
+def ptsearch():
+    return app.send_static_file('ptsearch.html')
+
+
+@app.route('/ptfenxi')
+def ptfenxi():
+    return app.send_static_file('ptanalytics.html')
+
+
+  # or nginx server static file
 
 
 if __name__ == '__main__':

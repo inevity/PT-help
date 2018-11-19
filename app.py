@@ -3,15 +3,19 @@
 # Copyright (c) 2017-2020 Rhilip <rhilipruan@gmail.com>
 
 import pymysql
+#import os
 
 from flask import Flask
 from flaskext.mysql import MySQL
 from flask_cors import CORS
 from flask_caching import Cache
 
-app = Flask(__name__, instance_relative_config=True)
+app = Flask(__name__, static_folder='docs', static_url_path='', instance_relative_config=True)
+#app = Flask(__name__, instance_path=os.path.join(os.path.abspath(os.curdir), 'instance'), instance_relative_config=True)
+
 app.config.from_object('config')
-app.config.from_pyfile('config.py')
+#app.config.from_pyfile('config.py')
+app.config.from_pyfile('config.py',  silent=True)
 
 
 class Database(MySQL):

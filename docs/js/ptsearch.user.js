@@ -66,7 +66,7 @@ $(document).ready(function () {
     function writelog(text) {
         search_log.append("<li>" + TimeStampFormatter(Date.now()) + " - " + text + "</li>");
     }
-    
+
     // Search on enter
     $('#keyword').on('keyup', function (e) {
         if (e.keyCode == 13) {
@@ -102,6 +102,7 @@ $(document).ready(function () {
         function Get_Search_Page(site, search_prefix, parser_func) {
             if (search_site.indexOf(site) > -1) {
                 writelog("Start Searching in Site " + site + " .");
+                writelog("Start Searching in Site " + search_prefix + " .");
                 GM_xmlhttpRequest({
                     method: 'GET',
                     url: search_prefix.replace("$key$",search_text),
@@ -109,6 +110,8 @@ $(document).ready(function () {
                         writelog(res.finalUrl);
                         writelog(res.statusText);
                         writelog(res.readyState);
+
+                        writelog("test" + site + ".");
                         if (/(login|verify|returnto)[.=]/.test(res.finalUrl)) {
                             writelog("May Not Login in Site " + site + ". With finalUrl: " + res.finalUrl);
                         } else {
@@ -135,7 +138,7 @@ $(document).ready(function () {
         // NexusPHP类站点通用
         function NexusPHP(site, search_prefix, torrent_table_selector) {
             Get_Search_Page(site, search_prefix, function (res, doc, body, page) {
-                var url_prefix = /whu\.pt|pt\.whu\.edu\.cn|whupt\.net|hudbt\.hust\.edu\.cn/.test(res.finalUrl) ? "" : (res.finalUrl.match(/(https?:\/\/[^\/]+?\/).+/) || ['', ''])[1];
+                var url_prefix = /whu\.pt|hudbt\.hust\.edu\.cn/.test(res.finalUrl) ? "" : (res.finalUrl.match(/(https?:\/\/[^\/]+?\/).+/) || ['', ''])[1];
                 writelog("Using The normal parser for NexusPHP in Site: " + site);
                 if (/没有种子|No [Tt]orrents?|Your search did not match anything|用准确的关键字重试/.test(res.responseText)) {
                     writelog("No any torrent find in Site " + site + ".");
@@ -490,7 +493,8 @@ $(document).ready(function () {
         writelog("Script Version: " + script_version + ", Choose Site List: " + search_site.toString() + ", With Search Keywords: " + search_text);
         // 教育网通用模板解析
         NexusPHP("BYR", "https://bt.byr.cn/torrents.php?search=$key$");
-        NexusPHP("WHU", "https://pt.whu.edu.cn/torrents.php?search=$key$");
+        NexusPHP("WHU", "https://whu.pt/torrents.php?search=$key$");
+        //NexusPHP("WHU", "https://pt.whu.edu.cn/torrents.php?search=$key$");
         NexusPHP("NWSUAF6", "https://pt.nwsuaf6.edu.cn/torrents.php?search=$key$");
         NexusPHP("XAUAT6", "http://pt.xauat6.edu.cn/torrents.php?search=$key$");
         NexusPHP("NYPT", "http://nanyangpt.com/torrents.php?search=$key$");
